@@ -1,0 +1,46 @@
+
+R version 4.2.2 (2022-10-31 ucrt) -- "Innocent and Trusting"
+Copyright (C) 2022 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> # demand_analysis_heterogeneity.R
+> ## analysis based on the GRF
+> 
+> library(grf)
+Warning message:
+package 'grf' was built under R version 4.2.3 
+> library(data.table)
+> library(lfe)
+Loading required package: Matrix
+> library(gtools)
+> library(fixest)
+> library(RColorBrewer)
+> library(ggplot2)
+> library(readxl)
+> library(akima)
+> library(latex2exp)
+Warning message:
+package 'latex2exp' was built under R version 4.2.3 
+> 
+> # seed
+> rf_seed <- 1231522
+> 
+> # load data
+> dat <- fread("../temp/assembled_data.txt", fill = T)
+Error in fread("../temp/assembled_data.txt", fill = T) : 
+  File '../temp/assembled_data.txt' does not exist or is non-readable. getwd()=='E:/SynologyDrive/Home PC/twitch_replication/TwitchReplication/analyze/code'
+Execution halted

@@ -164,6 +164,8 @@ cython_debug/
 /build/input/
 /build/output/
 /build/temp/
+/analyze/output/
+/analyze/temp/
 
 # Auxiliary files
 .RData
