@@ -5,7 +5,7 @@ program drop _all
 program main
 
 	build_stream_characteristics
-
+	build_twitch_stream_history
 end
 
 
@@ -38,6 +38,95 @@ program build_stream_characteristics
 	drop daily_viewers_avg language primary_steam_appid primary_steam_game secondary_appid secondary_game third_appid third_game fourth_appid fourth_game
 	save "../output/stream_chars.dta", replace
 
+end
+
+
+program build_twitch_stream_history
+
+	* Assemble TwitchTracker data *
+	import delimited "../input/data_twitch_tracker/batch_2/streams.csv", clear
+	gen date2 = substr(date, 1, 10)
+	keep name date2 time duration viewers unique_viewers games  
+	save "../temp/twitch_tracker_streams_temp.dta", replace
+	foreach var in streams_2 streams_3 {
+		import delimited "../input/data_twitch_tracker/batch_2/`var'.csv", clear
+		gen date2 = substr(date, 1, 10)
+		keep name date2 time duration viewers unique_viewers games  
+		save "../temp/stream_temp.dta", replace
+		use "../temp/twitch_tracker_streams_temp.dta", clear
+		append using "../temp/stream_temp.dta"
+		save "../temp/twitch_tracker_streams_temp.dta", replace
+	}
+	foreach var in streams streams_2 streams_3 {
+		import delimited "../input/data_twitch_tracker/batch_1/`var'.csv", clear
+		gen date2 = substr(date, 1, 10)
+		keep name date2 time duration viewers unique_viewers games  
+		save "../temp/stream_temp.dta", replace
+		use "../temp/twitch_tracker_streams_temp.dta", clear
+		append using "../temp/stream_temp.dta"
+		save "../temp/twitch_tracker_streams_temp.dta", replace
+	}
+	
+	duplicates drop
+	gen date = date(date2, "YMD")
+	format date %d
+	drop date2
+	
+	gen start_hour = substr(time, 1, 2)
+	gen start_minute = substr(time, 4, 2)
+	destring start_hour, replace force
+	destring start_minute, replace force
+	gen start_time = start_hour + start_minute/60
+
+	* Exclude popular non-game content *
+	replace games = regexr(games, "^Just Chatting$|Just Chatting, |, Just Chatting|, Just Chatting, ", "") 
+	replace games = regexr(games, "^Twitch Sings$|Twitch Sings, |, Twitch Sings|, Twitch Sings, ", "") 
+	replace games = regexr(games, "^Music$|Music, |, Music|, Music, ", "") 
+	replace games = regexr(games, "^Art$|Art, |, Art|, Art, ", "") 
+	replace games = regexr(games, "^Sports$|Sports, |, Sports|, Sports, ", "") 
+	replace games = regexr(games, "^Science & Technology$|Science & Technology, |, Science & Technology|, Science & Technology, ", "") 
+	replace games = regexr(games, "^Talk Shows & Podcasts$|Talk Shows & Podcasts, |, Talk Shows & Podcasts|, Talk Shows & Podcasts, ", "") 
+
+	* Exclude popular non-steam games *
+	replace games = regexr(games, "^League of Legends$|League of Legends, |, League of Legends|, League of Legends, ", "") 
+	replace games = regexr(games, "^Fortnite$|Fortnite, |, Fortnite|, Fortnite, ", "") 
+	replace games = regexr(games, "^Overwatch$|Overwatch, |, Overwatch|, Overwatch, ", "") 
+	replace games = regexr(games, "^StarCraft II$|StarCraft II, |, StarCraft II|, StarCraft II, ", "") 
+	replace games = regexr(games, "^Minecraft$|Minecraft, |, Minecraft|, Minecraft, ", "") 
+	replace games = regexr(games, "^World of Warcraft$|World of Warcraft, |, World of Warcraft|, World of Warcraft, ", "") 
+	replace games = regexr(games, "^VALORANT$|VALORANT, |, VALORANT|, VALORANT, ", "") 
+	replace games = regexr(games, "^Teamfight Tactics$|Teamfight Tactics, |, Teamfight Tactics|, Teamfight Tactics, ", "") 
+
+	* Clean game titles *
+	replace games = regexr(games, "^ |^, ", "") 
+	keep if games != ""
+
+	* Keep the first game if there are multiple games *
+	replace games = regexr(games, ", .*", "") 
+	
+	* Rename *
+	rename name streamer
+	save "../temp/twitch_tracker_historical_raw.dta", replace
+
+	use "../temp/twitch_tracker_historical_raw.dta", clear
+	
+	* Generate stream ID per streamer-date *
+	gsort streamer date -duration
+	by streamer date: gen stream_id = _n		// 88% streams are the only stream of the day, 11% streams are the second stream of the day, 5 streams goes to 
+	keep if stream_id <= 5
+	keep streamer date stream_id games viewers unique_viewers start_time duration
+		
+	* Extract game title *
+	gen     game_title = upper(games)
+	replace game_title = regexr(game_title, "'", "")
+	replace game_title = regexr(game_title, "Ã©", "É")
+	replace game_title = regexr(game_title, "é", "É")
+	
+	save "../temp/twitch_tracker_historical_full.dta", replace
+	
+	keep if year(date) == 2019 | year(date) == 2020
+	save "../temp/twitch_tracker_historical.dta", replace
+	
 end
 
 

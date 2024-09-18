@@ -13,7 +13,8 @@ program main
 	game_chars_augment
 	organize_game_chars
 	organize_game_date_chars
-
+	build_crosswalk_twitch_steam
+	
 end
 
 
@@ -504,6 +505,15 @@ program organize_game_date_chars
 	restore
 */
 	
+end
+
+
+program build_crosswalk_twitch_steam
+
+	import delimited "../input/crosswalks/top_games_twitch_steam_ids_hand_lookup.csv", clear
+	replace game_title = regexr(game_title, "]$", "")
+	save "../temp/steam_twitch_crosswalk.dta", replace
+
 end
 
 
