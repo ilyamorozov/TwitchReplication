@@ -1,0 +1,5 @@
+Average elasticity: 0.0219
+Min/max of elasticity: -0.1056 and 0.1572
+Quartiles of elasticity: 0.0047 and 0.0293
+Percent positive elasticity: 0.8712
+Number and percent significant elasticity: 362 and 0.6054
