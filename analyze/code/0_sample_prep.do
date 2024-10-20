@@ -43,6 +43,7 @@ program create_directories
 	cap mkdir ../output/tables/
 	cap mkdir ../output/tables/appendix/
 	cap mkdir ../output/tables/appendix/main_results_robust/
+	cap mkdir ../output/tables/section2/
 	cap mkdir ../output/tables/section3/
 	cap mkdir ../output/tables/section3/bootstrap_samples/
 	cap mkdir ../output/tables/section4/
