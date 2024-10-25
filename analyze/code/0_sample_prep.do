@@ -65,7 +65,10 @@ program build_stream_table
 	gen is_primary_game = primary_steam_appid == appid & primary_steam_appid != .
 	gen is_chat = game_title == "JUST CHATTING"
 	gen is_other_game = is_primary_game == 0 & is_chat == 0
-	collapse (min) start_time = time_utc (max) end_time = time_utc (firstnm) game_title appid is_primary_game is_chat is_other_game is_partner scaling_factor, by(streamer stream_id)
+	bysort streamer stream_id: egen start_time = min(time_utc)
+	bysort streamer stream_id: egen end_time = max(time_utc)
+	bysort streamer stream_id: keep if _n == 1
+	keep streamer stream_id start_time end_time game_title appid is_primary_game is_chat is_other_game is_partner scaling_factor
 	gen duration = (end_time - start_time) / 1000 / 60
 	save "../temp/stream_dat.dta", replace
 	
