@@ -1,11 +1,19 @@
-# temp_predicted_lift.R
+# 7_roi_computations.R
+
+# load libraries
+library(grf)
+library(data.table)
+library(lfe)
+library(gtools)
+library(fixest)
+library(RColorBrewer)
+library(ggplot2)
+library(readxl)
+library(akima)
+library(latex2exp)
+library(kdensity)
 
 rm(list = ls())
-library("data.table")
-library("lfe")
-library("RColorBrewer")
-library("kdensity")
-library("readxl")
 
 # (1) Load data
 estimated_te <- fread("../output/estimates/forest/estimated_te.csv") # read the estimated_te

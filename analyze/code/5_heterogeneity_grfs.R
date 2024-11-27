@@ -1,6 +1,10 @@
 # demand_analysis_heterogeneity.R
 ## analysis based on the GRF
 
+# install all libraries
+# source("./code_lib/setup_r_environment.R")
+
+# load libraries
 library(grf)
 library(data.table)
 library(lfe)
@@ -11,6 +15,7 @@ library(ggplot2)
 library(readxl)
 library(akima)
 library(latex2exp)
+library(kdensity)
 
 # seed
 rf_seed <- 1231522

@@ -1,6 +1,10 @@
-# try_grf
-#   tries out the grf package
+# 8_demand_heterogeneity_cross_validation.R
 
+# load environment
+require(renv)
+renv::activate()
+
+# load libraries
 library(grf)
 library(data.table)
 library(lfe)
@@ -10,6 +14,8 @@ library(RColorBrewer)
 library(ggplot2)
 library(readxl)
 library(akima)
+library(latex2exp)
+library(kdensity)
 
 # seed
 rf_seed <- 1231522
