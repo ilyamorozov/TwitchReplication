@@ -499,18 +499,20 @@ dev.off()
 # Claims in the paper about the CATEs
 ######################
 
-# median characteristics otherwise, ngames <= 2
-full_table[ngames <= 2, .(mean(predictions))]
-full_table[ngames <= 2, .(mean(predictions))] / full_table[ngames > 2, .(mean(predictions))]
-full_table[ngames <= 2, .(mean(predictions))] / 0.022
+# how much higher are streaming elasticities for small publishers relative to large publishers
+small_firm_elasticity <- full_table[ngames <= 2, .(mean(predictions))]
+small_large_firm_elas_diff <- full_table[ngames <= 2, .(mean(predictions))] / full_table[ngames > 2, .(mean(predictions))]
+write(paste0("Small firm elasticity: ", round(small_firm_elasticity, 2)), file, append = T)
+write(paste0("Small-large elasticity diff: ", round(small_large_firm_elas_diff - 1, 2)), file, append = T)
 
-# average characteristics otherwise, rating >= 90
-full_table[metascore >= 80, .(mean(predictions))]
-full_table[metascore >= 80, .(mean(predictions))] / full_table[metascore < 80, .(mean(predictions))]
-full_table[metascore >= 80, .(mean(predictions))] / 0.022
+# how about high/low quality games?
+high_qual_elasticity <- full_table[metascore >= 80, .(mean(predictions))]
+high_low_qual_elas_diff <- full_table[metascore >= 80, .(mean(predictions))] / full_table[metascore < 80, .(mean(predictions))]
+write(paste0("High quality elasticity: ", round(high_qual_elasticity, 2)), file, append = T)
+write(paste0("High-low qual elasticity diff: ", round(high_low_qual_elas_diff - 1, 2)), file, append = T)
 
-# average characteristics othersise, SD rating >= 2.8, which is slightly above the median at 2.44
-full_table[metastd >= 2.8, .(mean(predictions))]
-full_table[metastd >= 2.8, .(mean(predictions))] / full_table[metastd < 2.8, .(mean(predictions))]
-full_table[metastd >= 2.8, .(mean(predictions))] / 0.022
-
+# how about high/low consumer rating SD?
+high_sd_elasticity <- full_table[metastd >= 2.8, .(mean(predictions))]
+high_low_sd_elas_diff <- full_table[metastd >= 2.8, .(mean(predictions))] / full_table[metastd < 2.8, .(mean(predictions))]
+write(paste0("High rating SD elasticity: ", round(high_sd_elasticity, 2)), file, append = T)
+write(paste0("High-low SD elasticity diff: ", round(high_low_sd_elas_diff - 1, 2)), file, append = T)
