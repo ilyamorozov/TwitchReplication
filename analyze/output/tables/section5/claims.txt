@@ -1,26 +1,24 @@
 Number of free games: 80
-Median revenue increase (direct effect only): 7.57655584359263
-Median ROI (direct effect only): -0.94738502886394
+Median revenue increase (direct effect only): 7.66902232372233
+Median ROI (direct effect only): -0.946742900529706
 Number profitable (direct effect only): 81
 Number unprofitable (direct effect only): 438
 Share profitable (direct effect only): 0.15606936416185
 Share unprofitable (direct effect only): 0.84393063583815
-70th percentile revenue increase (direct effect only): 41.2809192124748
-80th percentile revenue increase (direct effect only): 83.0185581331264
-90th percentile revenue increase (direct effect only): 345.152702703789
-95th percentile revenue increase (direct effect only): 645.769018905779
-99th percentile revenue increase (direct effect only): 2428.28525304263
-70th percentile ROI (direct effect only): -0.71332694991337
-80th percentile ROI (direct effect only): -0.423482235186622
-90th percentile ROI (direct effect only): 1.39689376877631
-95th percentile ROI (direct effect only): 3.48450707573458
-99th percentile ROI (direct effect only): 15.8630920350182
+70th percentile revenue increase (direct effect only): 41.7832411562743
+80th percentile revenue increase (direct effect only): 84.4275641823733
+90th percentile revenue increase (direct effect only): 338.850272089645
+95th percentile revenue increase (direct effect only): 652.160065859137
+99th percentile revenue increase (direct effect only): 2487.5109543251
+70th percentile ROI (direct effect only): -0.709838603081428
+80th percentile ROI (direct effect only): -0.413697470955741
+90th percentile ROI (direct effect only): 1.35312688951142
+95th percentile ROI (direct effect only): 3.52888934624401
+99th percentile ROI (direct effect only): 16.2743816272577
 Number of games that ever sponsored: 232
 Number of games that NEVER sponsored: 287
 Number of games that ever sponsored AND have positive returns: 58
 Fraction of games that observe positive returns: 0.25
-Median ROI among all games: -0.94738502886394
-Median ROI for those who sponsor: -0.793722598371057
-Median ROI for those who sponsor and observe positive returns: 2.45373325863638
-Median revenue if beta estimated from cross-sectional variation: 
-Median ROI if beta estimated from cross-sectional variation: 
+Median ROI among all games: -0.946742900529706
+Median ROI for those who sponsor: -0.780356474234258
+Median ROI for those who sponsor and observe positive returns: 2.42744952324598

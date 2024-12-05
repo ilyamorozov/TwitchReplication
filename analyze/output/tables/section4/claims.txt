@@ -1,5 +1,11 @@
-Average elasticity: 0.0219
-Min/max of elasticity: -0.1056 and 0.1572
-Quartiles of elasticity: 0.0047 and 0.0293
-Percent positive elasticity: 0.8712
-Number and percent significant elasticity: 362 and 0.6054
+Average elasticity: 0.0217
+Min/max of elasticity: -0.1123 and 0.1559
+Quartiles of elasticity: 0.0048 and 0.0291
+Percent positive elasticity: 0.8779
+Number and percent significant elasticity: 359 and 0.6003
+Small firm elasticity: 0.03
+Small-large elasticity diff: 0.27
+High quality elasticity: 0.04
+High-low qual elasticity diff: 0.97
+High rating SD elasticity: 0.05
+High-low SD elasticity diff: 1.3

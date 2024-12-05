@@ -2,7 +2,7 @@
 ## analysis based on the GRF
 
 # install all libraries
-# source("./code_lib/setup_r_environment.R")
+source("./code_lib/setup_R_env.R")
 
 # load libraries
 library(grf)
