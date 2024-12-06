@@ -420,9 +420,15 @@ dev.off()
 pdf("../output/graphs/section4/observ_density_2.pdf", width = 5, height = 5)
 estimated_te_mod <- copy(estimated_te)
 estimated_te_mod[, metascore := pmin(pmax(metascore, min(rating_vec)), max(rating_vec))]
-estimated_te_mod[, regular_price := pmin(pmax(regular_price, min(price_vec)), max(price_vec))]
-u <- ggplot(estimated_te_mod[metascore >= 50], aes(metascore, I(regular_price + 1)), plot.axes = {axis(1, at=x, label=xtick); axis(2, at=y, label=ytick)})
-u + geom_point() + scale_y_continuous(trans='log2') + geom_density_2d() + 
+estimated_te_mod[, regular_price := 1 + pmin(pmax(regular_price, min(price_vec)), max(price_vec))]
+u <- ggplot(estimated_te_mod[metascore >= 50], aes(x = metascore, y = regular_price), plot.axes = {axis(1, at=x, label=xtick); axis(2, at=y, label=ytick)})
+u + geom_point() + 
+    scale_y_continuous(
+        trans = "log2",
+        breaks = c(1, 6, 11, 21, 41, 61),
+        labels = c("0", "5", "10", "20", "40", "60")
+    ) +
+    geom_density_2d() + 
     xlab("metacritic rating") + ylab("regular price") + 
     theme_classic() + theme(text = element_text(size = 12)) +
     theme(plot.margin = unit(c(.7, .7, .7, .7), "cm")) + 
